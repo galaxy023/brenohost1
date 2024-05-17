@@ -1,7 +1,19 @@
+var k = false;
+
 var originalLog = console.log;
 console.log = function() {
-    var logMessage = Array.prototype.slice.call(arguments).join(' ');
+    const j = localStorage.getItem('k');
+    if(!j) {
+        var logMessage = Array.prototype.slice.call(arguments).join(' ');
 
-    originalLog.call(console, logMessage);
-
-alert(logMessage);
+        originalLog.call(console, logMessage);
+        if (logMessage.includes("Set current server: ")) {
+            var serverName = logMessage.split("Set current server: ")[1];
+            localStorage.setItem('serverName', serverName);
+            k = true;
+            localStorage.setItem('k', k);
+        }
+    }
+}
+const get = localStorage.getItem('serverName');
+alert(get);
