@@ -1,1 +1,7 @@
-alert('running1');
+var originalLog = console.log;
+console.log = function() {
+    var logMessage = Array.prototype.slice.call(arguments).join(' ');
+
+    originalLog.call(console, logMessage);
+
+alert(logMessage);
